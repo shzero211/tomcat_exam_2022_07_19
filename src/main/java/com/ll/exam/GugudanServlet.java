@@ -11,6 +11,7 @@ import java.io.IOException;
 public class GugudanServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+      /**
         int idx=1;
         req.setCharacterEncoding("UTF-8");
         resp.setContentType("UTF-8");
@@ -21,6 +22,17 @@ public class GugudanServlet extends HttpServlet {
         for(int j=1;j<=limit;j++){
             resp.getWriter().append("<p>%d x %d = %d</p> <br>".formatted(dan,j,dan*j));
         }
+       **/
+        Rq rq = new Rq(req, resp);
+
+        int dan = rq.getIntParam("dan", 9);
+        int limit = rq.getIntParam("limit", 9);
+
+        rq.appendBody("<h1>%d단</h1>\n".formatted(dan));
+
+        for (int i = 1; i <= limit; i++) {
+            rq.appendBody("<div>%d * %d = %d</div>\n".formatted(dan, i, dan * i));
+        }
+    }
 
     }
-}
